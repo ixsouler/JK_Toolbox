@@ -1,0 +1,14 @@
+;;; Visual LISP 生成文件 [V1.0] JK_Toolbox saved to:[E:/Nextcloud/VSCode/JK_Toolbox/release] at:[6/24/26] 
+(PRV-DEF (:target . "JK_Toolbox.VLX")
+	 (:active-x . T)
+	 (:separate-namespace)
+	 (:protected . T)
+	 (:load-file-list
+	   (:lsp "E:/Nextcloud/VSCode/JK_Toolbox/JK_Toolbox.LSP")
+	 )
+	 (:require-file-list)
+	 (:ob-directory)
+	 (:tmp-directory)
+	 (:optimization . lsa)
+)
+;; EOF
