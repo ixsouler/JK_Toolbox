@@ -1,43 +1,47 @@
 ;;; ================================================================
-;;; ³ÌĞòÃû³Æ£ºJK¹¤¾ßÏä V1.0
-;;; ¹¦ÄÜÃèÊö£ºÍ³Ò»¹ÜÀí¶à¸ö¸¨Öú¹¤¾ß£¬Ö§³ÖÀ©Õ¹
-;;; ¿ì½İ¼ü£ºJK£¨Ö÷½çÃæ£©
-;;; ×÷Õß£ºixsouler
-;;; °æ±¾£º1.0
+;;; ç¨‹åºåç§°ï¼šJKå·¥å…·ç®± V1.1
+;;; åŠŸèƒ½æè¿°ï¼šç»Ÿä¸€ç®¡ç†å¤šä¸ªè¾…åŠ©å·¥å…·ï¼Œæ”¯æŒæ‰©å±•
+;;;          æ›¿æ¢æ’ä»¶æ”¯æŒé…ç½®æŒä¹…åŒ–ï¼ˆè·¨æ–‡ä»¶/è·¨ä¼šè¯ä¿ç•™ï¼‰
+;;; å¿«æ·é”®ï¼šJKï¼ˆä¸»ç•Œé¢ï¼‰
+;;; ä½œè€…ï¼šixsouler
+;;; ç‰ˆæœ¬ï¼š1.1
+;;; æ›´æ–°æ—¥å¿—ï¼š
+;;;   V1.1 - æ›¿æ¢æ’ä»¶é…ç½®æŒä¹…åŒ–ï¼Œå†™å…¥æ³¨å†Œè¡¨ï¼Œè·¨æ–‡ä»¶ä¿ç•™
+;;;   V1.0 - åˆå§‹ç‰ˆæœ¬ï¼ŒåŒ…å«æ‰¹é‡æŸ¥é‡ã€æ‰¹é‡æ›¿æ¢ã€æ–‡å­—å¥—æ¤­åœ†
 ;;; ================================================================
 
 ;;; ================================================================
-;;; µÚÒ»²¿·Ö£ºÈ«¾Ö±äÁ¿ºÍÅäÖÃ
+;;; ç¬¬ä¸€éƒ¨åˆ†ï¼šå…¨å±€å˜é‡å’Œé…ç½®
 ;;; ================================================================
 
-;; ¹¤¾ßÏä°æ±¾
-(setq *JK-version* "V1.0")
+;; å·¥å…·ç®±ç‰ˆæœ¬
+(setq *JK-version* "V1.1")
 
-;; ²å¼şÁĞ±íÅäÖÃ£¨¿ÉÀ©Õ¹£©
-;; ¸ñÊ½£º(ÃüÁîÃû ÏÔÊ¾Ãû³Æ ¹¦ÄÜÃèÊö ÊÇ·ñÆôÓÃ)
+;; æ’ä»¶åˆ—è¡¨é…ç½®ï¼ˆå¯æ‰©å±•ï¼‰
+;; æ ¼å¼ï¼š(å‘½ä»¤å æ˜¾ç¤ºåç§° åŠŸèƒ½æè¿° æ˜¯å¦å¯ç”¨)
 (setq *JK-plugin-list* 
   '(
-    ("JK_FindDup" "ÅúÁ¿²éÖØ" "²éÕÒÖØ¸´ÎÄ×Ö²¢ÓÃ²»Í¬ÑÕÉ«±ê¼Ç" T)
-    ("JK_Replace" "ÅúÁ¿Ìæ»»" "Ö§³Ö3×éÎÄ±¾Í¬Ê±Ìæ»»" T)
-    ("JK_TextEllipse" "ÎÄ×ÖÌ×ÍÖÔ²" "ÎªÎÄ×ÖÖĞĞÄÌí¼Ó¹Ì¶¨´óĞ¡ÍÖÔ²" T)
-    ;; Î´À´À©Õ¹²å¼şÊ¾Àı£¨È¡Ïû×¢ÊÍ¼´¿ÉÆôÓÃ£©
-    ;; ("JK_Plugin3" "²å¼şÃû³Æ" "¹¦ÄÜÃèÊö" T)
-    ;; ("JK_Plugin4" "²å¼şÃû³Æ" "¹¦ÄÜÃèÊö" T)
+    ("JK_FindDup" "æ‰¹é‡æŸ¥é‡" "æŸ¥æ‰¾é‡å¤æ–‡å­—å¹¶ç”¨ä¸åŒé¢œè‰²æ ‡è®°" T)
+    ("JK_Replace" "æ‰¹é‡æ›¿æ¢" "æ”¯æŒ3ç»„æ–‡æœ¬åŒæ—¶æ›¿æ¢ï¼ˆé…ç½®è‡ªåŠ¨ä¿å­˜ï¼‰" T)
+    ("JK_TextEllipse" "æ–‡å­—å¥—æ¤­åœ†" "ä¸ºæ–‡å­—ä¸­å¿ƒæ·»åŠ å›ºå®šå¤§å°æ¤­åœ†" T)
+    ;; æœªæ¥æ‰©å±•æ’ä»¶ç¤ºä¾‹ï¼ˆå–æ¶ˆæ³¨é‡Šå³å¯å¯ç”¨ï¼‰
+    ;; ("JK_Plugin3" "æ’ä»¶åç§°" "åŠŸèƒ½æè¿°" T)
+    ;; ("JK_Plugin4" "æ’ä»¶åç§°" "åŠŸèƒ½æè¿°" T)
   )
 )
 
 ;;; ================================================================
-;;; µÚ¶ş²¿·Ö£ºÖ÷ÃüÁî - JK
+;;; ç¬¬äºŒéƒ¨åˆ†ï¼šä¸»å‘½ä»¤ - JK
 ;;; ================================================================
 
 (defun c:JK (/ dcl_id dcl_file result selected-plugin)
   (vl-load-com)
   
-  ;; ´´½¨²¢ÏÔÊ¾Ö÷¶Ô»°¿ò
+  ;; åˆ›å»ºå¹¶æ˜¾ç¤ºä¸»å¯¹è¯æ¡†
   (setq dcl_file (JK:create_main_dialog))
   (if (not dcl_file)
     (progn
-      (princ "\n´íÎó£ºÎŞ·¨´´½¨¶Ô»°¿òÎÄ¼ş¡£")
+      (princ "\né”™è¯¯ï¼šæ— æ³•åˆ›å»ºå¯¹è¯æ¡†æ–‡ä»¶ã€‚")
       (exit)
     )
   )
@@ -45,7 +49,7 @@
   (setq dcl_id (load_dialog dcl_file))
   (if (not dcl_id)
     (progn
-      (princ "\n´íÎó£ºÎŞ·¨¼ÓÔØ¹¤¾ßÏä¶Ô»°¿ò¡£")
+      (princ "\né”™è¯¯ï¼šæ— æ³•åŠ è½½å·¥å…·ç®±å¯¹è¯æ¡†ã€‚")
       (vl-file-delete dcl_file)
       (exit)
     )
@@ -55,98 +59,98 @@
     (progn
       (unload_dialog dcl_id)
       (vl-file-delete dcl_file)
-      (princ "\n´íÎó£ºÎŞ·¨ÏÔÊ¾¹¤¾ßÏä¶Ô»°¿ò¡£")
+      (princ "\né”™è¯¯ï¼šæ— æ³•æ˜¾ç¤ºå·¥å…·ç®±å¯¹è¯æ¡†ã€‚")
       (exit)
     )
   )
   
-  ;; ÉèÖÃ¶Ô»°¿òÄÚÈİ
+  ;; è®¾ç½®å¯¹è¯æ¡†å†…å®¹
   (JK:setup_dialog)
   
-  ;; °´Å¥¶¯×÷ - Ê¹ÓÃÍ³Ò»ÃüÃû
+  ;; æŒ‰é’®åŠ¨ä½œ - ä½¿ç”¨ç»Ÿä¸€å‘½å
   (action_tile "btn_JK_FindDup" "(done_dialog 1)")
   (action_tile "btn_JK_Replace" "(done_dialog 2)")
   (action_tile "btn_JK_TextEllipse" "(done_dialog 3)")
   (action_tile "btn_about" "(done_dialog 99)")
   (action_tile "cancel" "(done_dialog 0)")
   
-  ;; ÏÔÊ¾¶Ô»°¿ò
+  ;; æ˜¾ç¤ºå¯¹è¯æ¡†
   (setq result (start_dialog))
   (unload_dialog dcl_id)
   
-  ;; É¾³ıÁÙÊ±DCLÎÄ¼ş
+  ;; åˆ é™¤ä¸´æ—¶DCLæ–‡ä»¶
   (if (findfile dcl_file)
     (vl-file-delete dcl_file)
   )
   
-  ;; ¸ù¾İÓÃ»§Ñ¡ÔñÖ´ĞĞÏàÓ¦¹¦ÄÜ
+  ;; æ ¹æ®ç”¨æˆ·é€‰æ‹©æ‰§è¡Œç›¸åº”åŠŸèƒ½
   (cond
     ((= result 1) (JK:run_plugin "JK_FindDup"))
     ((= result 2) (JK:run_plugin "JK_Replace"))
     ((= result 3) (JK:run_plugin "JK_TextEllipse"))
     ((= result 99) (JK:show_about))
-    (T (princ "\nÒÑÍË³ö¹¤¾ßÏä¡£"))
+    (T (princ "\nå·²é€€å‡ºå·¥å…·ç®±ã€‚"))
   )
   
   (princ)
 )
 
 ;;; ================================================================
-;;; µÚÈı²¿·Ö£º¶Ô»°¿òÉú³É£¨ĞŞ¸´°æ±¾£©
+;;; ç¬¬ä¸‰éƒ¨åˆ†ï¼šå¯¹è¯æ¡†ç”Ÿæˆ
 ;;; ================================================================
 
 (defun JK:create_main_dialog (/ dcl_parts dcl_content dcl_file fp version-str)
-  ;; »ñÈ¡°æ±¾ºÅ×Ö·û´®
+  ;; è·å–ç‰ˆæœ¬å·å­—ç¬¦ä¸²
   (setq version-str *JK-version*)
   
-  ;; ½«DCLÄÚÈİ²ğ·ÖÎª¶à¸ö¶Ì×Ö·û´®
+  ;; å°†DCLå†…å®¹æ‹†åˆ†ä¸ºå¤šä¸ªçŸ­å­—ç¬¦ä¸²
   (setq dcl_parts
     (list
       "JK_Toolbox : dialog {\n"
-      "  label = \"JK¹¤¾ßÏä " version-str "\";\n"
+      "  label = \"JKå·¥å…·ç®± " version-str "\";\n"
       "  : column {\n"
       "    : row {\n"
-      "      : text { label = \"¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\"; alignment = centered; width = 40; }\n"
+      "      : text { label = \"â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\"; alignment = centered; width = 40; }\n"
       "    }\n"
       "    : row {\n"
-      "      : text { label = \"   »¶Ó­Ê¹ÓÃ JK ¹¤¾ßÏä\"; alignment = centered; width = 40; height = 2; }\n"
+      "      : text { label = \"   æ¬¢è¿ä½¿ç”¨ JK å·¥å…·ç®±\"; alignment = centered; width = 40; height = 2; }\n"
       "    }\n"
       "    : row {\n"
-      "      : text { label = \"¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T\"; alignment = centered; width = 40; }\n"
+      "      : text { label = \"â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\"; alignment = centered; width = 40; }\n"
       "    }\n"
       "    : spacer { height = 1; }\n"
       "    : boxed_column {\n"
-      "      label = \"¹¤¾ßÁĞ±í\";\n"
+      "      label = \"å·¥å…·åˆ—è¡¨\";\n"
       "      : row {\n"
-      "        : button { key = \"btn_JK_FindDup\"; label = \"ÅúÁ¿²éÖØ\"; width = 18; height = 2; mnemonic = \"F\"; }\n"
-      "        : button { key = \"btn_JK_Replace\"; label = \"ÅúÁ¿Ìæ»»\"; width = 18; height = 2; mnemonic = \"R\"; }\n"
+      "        : button { key = \"btn_JK_FindDup\"; label = \"æ‰¹é‡æŸ¥é‡\"; width = 18; height = 2; mnemonic = \"F\"; }\n"
+      "        : button { key = \"btn_JK_Replace\"; label = \"æ‰¹é‡æ›¿æ¢\"; width = 18; height = 2; mnemonic = \"R\"; }\n"
       "      }\n"
       "      : row {\n"
-      "        : button { key = \"btn_JK_TextEllipse\"; label = \"ÎÄ×ÖÌ×ÍÖÔ²\"; width = 18; height = 2; mnemonic = \"E\"; }\n"
-      "        : button { key = \"btn_plugin4\"; label = \"¹¤¾ß4\"; width = 18; height = 2; is_enabled = false; }\n"
+      "        : button { key = \"btn_JK_TextEllipse\"; label = \"æ–‡å­—å¥—æ¤­åœ†\"; width = 18; height = 2; mnemonic = \"E\"; }\n"
+      "        : button { key = \"btn_plugin4\"; label = \"å·¥å…·4\"; width = 18; height = 2; is_enabled = false; }\n"
       "      }\n"
       "      : row {\n"
-      "        : text { key = \"plugin_status\"; label = \"ÌáÊ¾£º»ÒÉ«°´Å¥ÎªÔ¤ÁôÀ©Õ¹Î»\"; alignment = centered; width = 40; }\n"
+      "        : text { key = \"plugin_status\"; label = \"æç¤ºï¼šç°è‰²æŒ‰é’®ä¸ºé¢„ç•™æ‰©å±•ä½\"; alignment = centered; width = 40; }\n"
       "      }\n"
       "    }\n"
       "    : boxed_column {\n"
-      "      label = \"×´Ì¬ĞÅÏ¢\";\n"
-      "      : text { key = \"status_text\"; label = \"ÇëÑ¡ÔñÒªÔËĞĞµÄ¹¤¾ß\"; alignment = centered; width = 40; height = 2; }\n"
+      "      label = \"çŠ¶æ€ä¿¡æ¯\";\n"
+      "      : text { key = \"status_text\"; label = \"è¯·é€‰æ‹©è¦è¿è¡Œçš„å·¥å…·\"; alignment = centered; width = 40; height = 2; }\n"
       "    }\n"
       "    : spacer { height = 1; }\n"
       "    : row {\n"
-      "      : button { key = \"btn_about\"; label = \"¹ØÓÚ\"; width = 12; fixed_width = true; alignment = centered; }\n"
-      "      : button { key = \"cancel\"; label = \"ÍË³ö\"; width = 12; fixed_width = true; is_default = true; alignment = centered; }\n"
+      "      : button { key = \"btn_about\"; label = \"å…³äº\"; width = 12; fixed_width = true; alignment = centered; }\n"
+      "      : button { key = \"cancel\"; label = \"é€€å‡º\"; width = 12; fixed_width = true; is_default = true; alignment = centered; }\n"
       "    }\n"
       "  }\n"
       "}\n"
     )
   )
   
-  ;; ºÏ²¢ËùÓĞ²¿·Ö
+  ;; åˆå¹¶æ‰€æœ‰éƒ¨åˆ†
   (setq dcl_content (apply 'strcat dcl_parts))
   
-  ;; Ğ´ÈëÁÙÊ±ÎÄ¼ş
+  ;; å†™å…¥ä¸´æ—¶æ–‡ä»¶
   (setq dcl_file (vl-filename-mktemp "JK_Toolbox.dcl"))
   (setq fp (open dcl_file "w"))
   (if fp
@@ -156,80 +160,83 @@
       dcl_file
     )
     (progn
-      (princ "\n´íÎó£ºÎŞ·¨´´½¨ÁÙÊ±¶Ô»°¿òÎÄ¼ş¡£")
+      (princ "\né”™è¯¯ï¼šæ— æ³•åˆ›å»ºä¸´æ—¶å¯¹è¯æ¡†æ–‡ä»¶ã€‚")
       nil
     )
   )
 )
 
 ;;; ================================================================
-;;; µÚËÄ²¿·Ö£º¶Ô»°¿ò¿ØÖÆ
+;;; ç¬¬å››éƒ¨åˆ†ï¼šå¯¹è¯æ¡†æ§åˆ¶
 ;;; ================================================================
 
 (defun JK:setup_dialog ()
-  ;; ÉèÖÃ×´Ì¬À¸ÌáÊ¾
+  ;; è®¾ç½®çŠ¶æ€æ æç¤º
   (action_tile "btn_JK_FindDup" 
-    "(set_tile \"status_text\" \"ÅúÁ¿²éÖØ£º²éÕÒÖØ¸´ÎÄ×Ö²¢ÓÃ²»Í¬ÑÕÉ«±ê¼Ç\") (done_dialog 1)")
+    "(set_tile \"status_text\" \"æ‰¹é‡æŸ¥é‡ï¼šæŸ¥æ‰¾é‡å¤æ–‡å­—å¹¶ç”¨ä¸åŒé¢œè‰²æ ‡è®°\") (done_dialog 1)")
   (action_tile "btn_JK_Replace" 
-    "(set_tile \"status_text\" \"ÅúÁ¿Ìæ»»£ºÖ§³Ö3×éÎÄ±¾Í¬Ê±Ìæ»»\") (done_dialog 2)")
+    "(set_tile \"status_text\" \"æ‰¹é‡æ›¿æ¢ï¼šæ”¯æŒ3ç»„æ–‡æœ¬åŒæ—¶æ›¿æ¢ï¼ˆé…ç½®è‡ªåŠ¨ä¿å­˜ï¼‰\") (done_dialog 2)")
   (action_tile "btn_JK_TextEllipse" 
-    "(set_tile \"status_text\" \"ÎÄ×ÖÌ×ÍÖÔ²£ºÎªÎÄ×ÖÖĞĞÄÌí¼Ó¹Ì¶¨´óĞ¡ÍÖÔ²£¨³¤Öá5£¬¶ÌÖá2.5£©\") (done_dialog 3)")
+    "(set_tile \"status_text\" \"æ–‡å­—å¥—æ¤­åœ†ï¼šä¸ºæ–‡å­—ä¸­å¿ƒæ·»åŠ å›ºå®šå¤§å°æ¤­åœ†ï¼ˆé•¿è½´5ï¼ŒçŸ­è½´2.5ï¼‰\") (done_dialog 3)")
   (action_tile "btn_about" 
-    "(set_tile \"status_text\" \"¹ØÓÚJK¹¤¾ßÏä\") (done_dialog 99)")
+    "(set_tile \"status_text\" \"å…³äºJKå·¥å…·ç®±\") (done_dialog 99)")
   
-  ;; ³õÊ¼»¯×´Ì¬ĞÅÏ¢
-  (set_tile "status_text" "»¶Ó­Ê¹ÓÃJK¹¤¾ßÏä£¬ÇëÑ¡ÔñÒªÔËĞĞµÄ¹¤¾ß")
+  ;; åˆå§‹åŒ–çŠ¶æ€ä¿¡æ¯
+  (set_tile "status_text" "æ¬¢è¿ä½¿ç”¨JKå·¥å…·ç®±ï¼Œè¯·é€‰æ‹©è¦è¿è¡Œçš„å·¥å…·")
   
-  ;; ÉèÖÃ¼üÅÌ½¹µãµ½µÚÒ»¸ö°´Å¥
+  ;; è®¾ç½®é”®ç›˜ç„¦ç‚¹åˆ°ç¬¬ä¸€ä¸ªæŒ‰é’®
   (mode_tile "btn_JK_FindDup" 2)
 )
 
 ;;; ================================================================
-;;; µÚÎå²¿·Ö£º²å¼ş¹ÜÀí
+;;; ç¬¬äº”éƒ¨åˆ†ï¼šæ’ä»¶ç®¡ç†
 ;;; ================================================================
 
-;; ÔËĞĞÖ¸¶¨²å¼ş
+;; è¿è¡ŒæŒ‡å®šæ’ä»¶
 (defun JK:run_plugin (cmd)
-  (princ (strcat "\nÕıÔÚÆô¶¯: " cmd " ..."))
+  (princ (strcat "\næ­£åœ¨å¯åŠ¨: " cmd " ..."))
   
-  ;; ¼ì²éÃüÁîÊÇ·ñ´æÔÚ
+  ;; æ£€æŸ¥å‘½ä»¤æ˜¯å¦å­˜åœ¨
   (if (not (eval (read (strcat "c:" cmd))))
     (progn
-      (princ (strcat "\n¾¯¸æ£º²å¼ş '" cmd "' Î´¼ÓÔØ»ò²»´æÔÚ¡£"))
-      (princ "\nÇëÈ·±£ÒÑ¼ÓÔØ¶ÔÓ¦µÄLISPÎÄ¼ş¡£")
-      (alert (strcat "²å¼şÎ´¼ÓÔØ£¡\n\nÇëÏÈ¼ÓÔØ " cmd ".lsp ÎÄ¼ş¡£"))
+      (princ (strcat "\nè­¦å‘Šï¼šæ’ä»¶ '" cmd "' æœªåŠ è½½æˆ–ä¸å­˜åœ¨ã€‚"))
+      (princ "\nè¯·ç¡®ä¿å·²åŠ è½½å¯¹åº”çš„LISPæ–‡ä»¶ã€‚")
+      (alert (strcat "æ’ä»¶æœªåŠ è½½ï¼\n\nè¯·å…ˆåŠ è½½ " cmd ".lsp æ–‡ä»¶ã€‚"))
       (exit)
     )
   )
   
-  ;; µ÷ÓÃÃüÁî
+  ;; è°ƒç”¨å‘½ä»¤
   (eval (read (strcat "(c:" cmd ")")))
-  (princ (strcat "\n" cmd " Ö´ĞĞÍê³É¡£"))
+  (princ (strcat "\n" cmd " æ‰§è¡Œå®Œæˆã€‚"))
 )
 
-;; ÏÔÊ¾¹ØÓÚĞÅÏ¢
+;; æ˜¾ç¤ºå…³äºä¿¡æ¯
 (defun JK:show_about ()
   (alert 
     (strcat 
-      "JK¹¤¾ßÏä " *JK-version* "\n\n"
-      "×÷Õß£ºixsouler\n"
-      "¹¦ÄÜ£ºÍ³Ò»¹ÜÀí¶à¸ö¸¨Öú¹¤¾ß\n\n"
-      "°üº¬²å¼ş£º\n"
+      "JKå·¥å…·ç®± " *JK-version* "\n\n"
+      "ä½œè€…ï¼šixsouler\n"
+      "åŠŸèƒ½ï¼šç»Ÿä¸€ç®¡ç†å¤šä¸ªè¾…åŠ©å·¥å…·\n\n"
+      "åŒ…å«æ’ä»¶ï¼š\n"
       (JK:get_plugin_list_str)
       "\n"
-      "Ê¹ÓÃËµÃ÷£º\n"
-      "1. ÊäÈë JK ´ò¿ª¹¤¾ßÏä\n"
-      "2. µã»÷¶ÔÓ¦°´Å¥ÔËĞĞ¹¤¾ß\n"
-      "3. Ö§³Ö¼üÅÌ¿ì½İ¼ü²Ù×÷\n\n"
-      "À©Õ¹ËµÃ÷£º\n"
-      "- ĞŞ¸Ä *JK-plugin-list* ¿ÉÌí¼ÓĞÂ²å¼ş\n"
-      "- ²å¼şÃüÃû¹æ·¶£ºJK_XXX\n"
-      "- ±ÜÃâÓëÆäËûÃüÁî³åÍ»"
+      "ä½¿ç”¨è¯´æ˜ï¼š\n"
+      "1. è¾“å…¥ JK æ‰“å¼€å·¥å…·ç®±\n"
+      "2. ç‚¹å‡»å¯¹åº”æŒ‰é’®è¿è¡Œå·¥å…·\n"
+      "3. æ”¯æŒé”®ç›˜å¿«æ·é”®æ“ä½œ\n\n"
+      "V1.1 æ›´æ–°ï¼š\n"
+      "- æ‰¹é‡æ›¿æ¢é…ç½®å·²æ”¯æŒæŒä¹…åŒ–ä¿å­˜\n"
+      "  ä¿®æ”¹æ›¿æ¢å¯¹åï¼Œæ‰“å¼€æ–°æ–‡ä»¶ä»ä¿ç•™\n\n"
+      "æ‰©å±•è¯´æ˜ï¼š\n"
+      "- ä¿®æ”¹ *JK-plugin-list* å¯æ·»åŠ æ–°æ’ä»¶\n"
+      "- æ’ä»¶å‘½åè§„èŒƒï¼šJK_XXX\n"
+      "- é¿å…ä¸å…¶ä»–å‘½ä»¤å†²çª"
     )
   )
 )
 
-;; »ñÈ¡²å¼şÁĞ±í×Ö·û´®
+;; è·å–æ’ä»¶åˆ—è¡¨å­—ç¬¦ä¸²
 (defun JK:get_plugin_list_str (/ result item)
   (setq result "")
   (foreach item *JK-plugin-list*
@@ -243,11 +250,11 @@
 )
 
 ;;; ================================================================
-;;; µÚÁù²¿·Ö£ºÖØÃüÃûµÄ²å¼şÃüÁî
+;;; ç¬¬å…­éƒ¨åˆ†ï¼šæ’ä»¶å‘½ä»¤
 ;;; ================================================================
 
 ;; ================================================================
-;; ²å¼ş1£ºÅúÁ¿²éÖØ (Ô­ FindDupText ¡ú JK_FindDup)
+;; æ’ä»¶1ï¼šæ‰¹é‡æŸ¥é‡ (JK_FindDup)
 ;; ================================================================
 
 (defun c:JK_FindDup (/ ss ent-lst text-lst dup-groups color-list 
@@ -255,45 +262,45 @@
                         color-index old-color all-texts processed
                         total-changed group-count)
   
-  (princ "\n=== JK¹¤¾ßÏä - ÅúÁ¿²éÖØ¹¤¾ß ===\n")
+  (princ "\n=== JKå·¥å…·ç®± - æ‰¹é‡æŸ¥é‡å·¥å…· ===\n")
   
-  ;; ÌáÊ¾ÓÃ»§Ñ¡Ôñµ¥ĞĞÎÄ×Ö¶ÔÏó
+  ;; æç¤ºç”¨æˆ·é€‰æ‹©å•è¡Œæ–‡å­—å¯¹è±¡
   (setq ss (ssget '((0 . "TEXT"))))
   
-  ;; Èç¹ûÃ»ÓĞÑ¡ÖĞ¶ÔÏó£¬ÍË³ö
+  ;; å¦‚æœæ²¡æœ‰é€‰ä¸­å¯¹è±¡ï¼Œé€€å‡º
   (if (null ss)
     (progn
-      (princ "\nÎ´Ñ¡ÖĞÈÎºÎµ¥ĞĞÎÄ×Ö¶ÔÏó£¡")
+      (princ "\næœªé€‰ä¸­ä»»ä½•å•è¡Œæ–‡å­—å¯¹è±¡ï¼")
       (princ)
       (exit)
     )
   )
   
-  ;; ³õÊ¼»¯ÁĞ±í
-  (setq ent-lst '())   ; ´æ´¢ (Í¼ÔªÃû . ÎÄ×ÖÄÚÈİ) µÄÁĞ±í
-  (setq all-texts '()) ; ´æ´¢ËùÓĞÎÄ×ÖÄÚÈİµÄÁĞ±í£¬ÓÃÓÚ¿ìËÙ²éÕÒ
+  ;; åˆå§‹åŒ–åˆ—è¡¨
+  (setq ent-lst '())   ; å­˜å‚¨ (å›¾å…ƒå . æ–‡å­—å†…å®¹) çš„åˆ—è¡¨
+  (setq all-texts '()) ; å­˜å‚¨æ‰€æœ‰æ–‡å­—å†…å®¹çš„åˆ—è¡¨ï¼Œç”¨äºå¿«é€ŸæŸ¥æ‰¾
   
-  ;; ±éÀúÑ¡Ôñ¼¯£¬ÊÕ¼¯ÎÄ×ÖĞÅÏ¢
+  ;; éå†é€‰æ‹©é›†ï¼Œæ”¶é›†æ–‡å­—ä¿¡æ¯
   (setq i 0)
   (repeat (sslength ss)
     (setq ent (ssname ss i))
-    (setq txt (cdr (assoc 1 (entget ent))))  ; »ñÈ¡ÎÄ×ÖÄÚÈİ
+    (setq txt (cdr (assoc 1 (entget ent))))  ; è·å–æ–‡å­—å†…å®¹
     (setq ent-lst (cons (cons ent txt) ent-lst))
     (setq all-texts (cons txt all-texts))
     (setq i (1+ i))
   )
   
-  ;; ²éÕÒÖØ¸´µÄÎÄ×ÖÄÚÈİ¼°Æä¶ÔÓ¦µÄÍ¼ÔªÁĞ±í
-  (setq dup-groups '())   ; ´æ´¢ (ÎÄ×ÖÄÚÈİ . (Í¼Ôª1 Í¼Ôª2 ...)) µÄÁĞ±í
-  (setq processed '())    ; ÒÑ´¦ÀíµÄÎÄ×ÖÄÚÈİÁĞ±í
+  ;; æŸ¥æ‰¾é‡å¤çš„æ–‡å­—å†…å®¹åŠå…¶å¯¹åº”çš„å›¾å…ƒåˆ—è¡¨
+  (setq dup-groups '())   ; å­˜å‚¨ (æ–‡å­—å†…å®¹ . (å›¾å…ƒ1 å›¾å…ƒ2 ...)) çš„åˆ—è¡¨
+  (setq processed '())    ; å·²å¤„ç†çš„æ–‡å­—å†…å®¹åˆ—è¡¨
   
   (foreach item ent-lst
     (setq txt (cdr item))
     
-    ;; Èç¹û¸ÃÎÄ×ÖÄÚÈİÉĞÎ´´¦Àí
+    ;; å¦‚æœè¯¥æ–‡å­—å†…å®¹å°šæœªå¤„ç†
     (if (not (member txt processed))
       (progn
-        ;; Í³¼Æ¸ÃÎÄ×ÖÄÚÈİ³öÏÖµÄ´ÎÊı
+        ;; ç»Ÿè®¡è¯¥æ–‡å­—å†…å®¹å‡ºç°çš„æ¬¡æ•°
         (setq count 0)
         (setq same-ents '())
         (foreach itm ent-lst
@@ -305,52 +312,52 @@
           )
         )
         
-        ;; Èç¹û³öÏÖ´ÎÊı´óÓÚ1£¬Ôò¼ÇÂ¼µ½ÖØ¸´×é
+        ;; å¦‚æœå‡ºç°æ¬¡æ•°å¤§äº1ï¼Œåˆ™è®°å½•åˆ°é‡å¤ç»„
         (if (> count 1)
           (setq dup-groups (cons (cons txt same-ents) dup-groups))
         )
         
-        ;; ±ê¼ÇÎªÒÑ´¦Àí
+        ;; æ ‡è®°ä¸ºå·²å¤„ç†
         (setq processed (cons txt processed))
       )
     )
   )
   
-  ;; Èç¹ûÃ»ÓĞÖØ¸´ÄÚÈİ£¬ÌáÊ¾²¢ÍË³ö
+  ;; å¦‚æœæ²¡æœ‰é‡å¤å†…å®¹ï¼Œæç¤ºå¹¶é€€å‡º
   (if (null dup-groups)
     (progn
-      (princ "\nÎ´·¢ÏÖÖØ¸´ÄÚÈİµÄÎÄ×Ö£¡")
+      (princ "\næœªå‘ç°é‡å¤å†…å®¹çš„æ–‡å­—ï¼")
       (princ)
       (exit)
     )
   )
   
-  ;; Ô¤¶¨ÒåÑÕÉ«ÁĞ±í
+  ;; é¢„å®šä¹‰é¢œè‰²åˆ—è¡¨
   (setq color-list '(1 2 3 4 5 6 8 10 11 12 13 14 15 16 17 18 20 21))
   
-  ;; ÏÔÊ¾ÖØ¸´·Ö×éĞÅÏ¢
-  (princ "\n·¢ÏÖÒÔÏÂÖØ¸´ÄÚÈİ·Ö×é£º")
+  ;; æ˜¾ç¤ºé‡å¤åˆ†ç»„ä¿¡æ¯
+  (princ "\nå‘ç°ä»¥ä¸‹é‡å¤å†…å®¹åˆ†ç»„ï¼š")
   (setq group-index 0)
   (foreach group dup-groups
     (setq txt (car group))
     (setq ents (cdr group))
-    (princ (strcat "\n  µÚ " (itoa (1+ group-index)) " ×é: \"" txt "\" (¹² " (itoa (length ents)) " ¸ö)"))
+    (princ (strcat "\n  ç¬¬ " (itoa (1+ group-index)) " ç»„: \"" txt "\" (å…± " (itoa (length ents)) " ä¸ª)"))
     (setq group-index (1+ group-index))
   )
   
-  ;; Ñ¯ÎÊÓÃ»§ÊÇ·ñ¼ÌĞø
+  ;; è¯¢é—®ç”¨æˆ·æ˜¯å¦ç»§ç»­
   (initget "Yes No")
-  (setq user-response (getkword "\nÊÇ·ñ¼ÌĞø±äÉ«²Ù×÷£¿[Yes/No] <Yes>: "))
+  (setq user-response (getkword "\næ˜¯å¦ç»§ç»­å˜è‰²æ“ä½œï¼Ÿ[Yes/No] <Yes>: "))
   (if (and user-response (= user-response "No"))
     (progn
-      (princ "\n²Ù×÷ÒÑÈ¡Ïû¡£")
+      (princ "\næ“ä½œå·²å–æ¶ˆã€‚")
       (princ)
       (exit)
     )
   )
   
-  ;; ÎªÃ¿×éÖØ¸´ÄÚÈİ·ÖÅä²»Í¬ÑÕÉ«²¢±äÉ«
-  (princ "\nÕıÔÚÎªÖØ¸´ÎÄ×Ö·ÖÅäÑÕÉ«...")
+  ;; ä¸ºæ¯ç»„é‡å¤å†…å®¹åˆ†é…ä¸åŒé¢œè‰²å¹¶å˜è‰²
+  (princ "\næ­£åœ¨ä¸ºé‡å¤æ–‡å­—åˆ†é…é¢œè‰²...")
   (setq group-index 0)
   (setq total-changed 0)
   (setq group-count (length dup-groups))
@@ -359,20 +366,20 @@
     (setq txt (car group))
     (setq ents (cdr group))
     
-    ;; ´ÓÑÕÉ«ÁĞ±íÖĞÈ¡É«
+    ;; ä»é¢œè‰²åˆ—è¡¨ä¸­å–è‰²
     (setq color-index (nth (rem group-index (length color-list)) color-list))
     
-    ;; »ñÈ¡¸Ã×éÖĞµÚÒ»¸öÎÄ×Ö¶ÔÏóµÄÔ­Ê¼ÑÕÉ«
+    ;; è·å–è¯¥ç»„ä¸­ç¬¬ä¸€ä¸ªæ–‡å­—å¯¹è±¡çš„åŸå§‹é¢œè‰²
     (setq first-ent (car ents))
     (setq ent-data (entget first-ent))
     (setq old-color (cdr (assoc 62 ent-data)))
     
-    ;; Èç¹ûÔ­ÑÕÉ«ÎªËæ²ã»òÄ¬ÈÏÉ«£¬»òÓë·ÖÅäÑÕÉ«ÏàÍ¬£¬½øĞĞµ÷Õû
+    ;; å¦‚æœåŸé¢œè‰²ä¸ºéšå±‚æˆ–é»˜è®¤è‰²ï¼Œæˆ–ä¸åˆ†é…é¢œè‰²ç›¸åŒï¼Œè¿›è¡Œè°ƒæ•´
     (if (or (null old-color) (= old-color 7))
       (setq old-color nil)
     )
     
-    ;; Èç¹û·ÖÅäµÄÑÕÉ«ÓëÔ­Ê¼ÑÕÉ«ÏàÍ¬£¬Ê¹ÓÃ±¸ÓÃÑÕÉ«
+    ;; å¦‚æœåˆ†é…çš„é¢œè‰²ä¸åŸå§‹é¢œè‰²ç›¸åŒï¼Œä½¿ç”¨å¤‡ç”¨é¢œè‰²
     (if (and old-color (= old-color color-index))
       (progn
         (setq alt-color nil)
@@ -391,7 +398,7 @@
       )
     )
     
-    ;; ±éÀú¸Ã×éËùÓĞÍ¼Ôª£¬¸Ä±äÑÕÉ«
+    ;; éå†è¯¥ç»„æ‰€æœ‰å›¾å…ƒï¼Œæ”¹å˜é¢œè‰²
     (foreach ent ents
       (setq ent-data (entget ent))
       (if (assoc 62 ent-data)
@@ -406,50 +413,55 @@
     (setq group-index (1+ group-index))
   )
   
-  ;; Êä³ö½á¹ûÍ³¼Æ
-  (princ (strcat "\nÍê³É£¡¹²´¦Àí " (itoa total-changed) " ¸öÖØ¸´ÎÄ×Ö¶ÔÏó£¬"
-                 "·ÖÎª " (itoa group-count) " ×é²»Í¬ÑÕÉ«¡£"))
-  (princ "\nÌáÊ¾£ºÊ¹ÓÃ 'CHPROP' ÃüÁî¿ÉÅúÁ¿»Ö¸´ÑÕÉ«¡£")
+  ;; è¾“å‡ºç»“æœç»Ÿè®¡
+  (princ (strcat "\nå®Œæˆï¼å…±å¤„ç† " (itoa total-changed) " ä¸ªé‡å¤æ–‡å­—å¯¹è±¡ï¼Œ"
+                 "åˆ†ä¸º " (itoa group-count) " ç»„ä¸åŒé¢œè‰²ã€‚"))
+  (princ "\næç¤ºï¼šä½¿ç”¨ 'CHPROP' å‘½ä»¤å¯æ‰¹é‡æ¢å¤é¢œè‰²ã€‚")
   (princ)
 )
 
 ;; ================================================================
-;; ²å¼ş2£ºÅúÁ¿Ìæ»» (Ô­ YY ¡ú JK_Replace)
+;; æ’ä»¶2ï¼šæ‰¹é‡æ›¿æ¢ (JK_Replace) - V1.1 å¢åŠ é…ç½®æŒä¹…åŒ–
 ;; ================================================================
 
-;; È«¾Ö±äÁ¿ - ±£´æÉÏ´ÎÊ¹ÓÃµÄÌæ»»¶Ô
+;; å…¨å±€å˜é‡ - ä¿å­˜ä¸Šæ¬¡ä½¿ç”¨çš„æ›¿æ¢å¯¹ï¼ˆå½“å‰ä¼šè¯ï¼‰
 (setq *JK-REPLACE-last-pairs* nil)
+
+;; æ³¨å†Œè¡¨é”®è·¯å¾„
+(setq *JK-REG-KEY* "Software\\JKToolbox\\Replace")
 
 (defun c:JK_Replace (/ old_new_pairs)
   (vl-load-com)
   
-  (princ "\n=== JK¹¤¾ßÏä - ÅúÁ¿Ìæ»»¹¤¾ß ===\n")
+  (princ "\n=== JKå·¥å…·ç®± - æ‰¹é‡æ›¿æ¢å·¥å…· ===\n")
   
-  ;; ÏÔÊ¾¶Ô»°¿ò»ñÈ¡Ìæ»»¶Ô
+  ;; æ˜¾ç¤ºå¯¹è¯æ¡†è·å–æ›¿æ¢å¯¹
   (setq old_new_pairs (JK_Replace:get_pairs))
   
-  ;; Èç¹ûÓÃ»§È¡ÏûÁË¶Ô»°¿ò£¬ÔòÍË³ö
+  ;; å¦‚æœç”¨æˆ·å–æ¶ˆäº†å¯¹è¯æ¡†ï¼Œåˆ™é€€å‡º
   (if (not old_new_pairs)
-    (princ "\nÓÃ»§È¡Ïû²Ù×÷¡£")
+    (princ "\nç”¨æˆ·å–æ¶ˆæ“ä½œã€‚")
     (progn
-      ;; Ö´ĞĞÌæ»»²Ù×÷
+      ;; æ‰§è¡Œæ›¿æ¢æ“ä½œ
       (JK_Replace:execute old_new_pairs)
-      ;; ±£´æ±¾´ÎÌæ»»¶Ô¹©ÏÂ´ÎÊ¹ÓÃ
+      ;; ä¿å­˜åˆ°å½“å‰ä¼šè¯å†…å­˜å˜é‡
       (setq *JK-REPLACE-last-pairs* old_new_pairs)
-      (princ "\nÌæ»»²Ù×÷Íê³É£¡")
+      ;; â˜… V1.1æ–°å¢ï¼šåŒæ—¶ä¿å­˜åˆ°æ³¨å†Œè¡¨ï¼ˆè·¨æ–‡ä»¶/è·¨ä¼šè¯æŒä¹…åŒ–ï¼‰
+      (JK_Replace:save_to_reg old_new_pairs)
+      (princ "\næ›¿æ¢æ“ä½œå®Œæˆï¼é…ç½®å·²ä¿å­˜ã€‚")
     )
   )
   (princ)
 )
 
-;; »ñÈ¡Ìæ»»¶Ô£¨¶Ô»°¿ò£©
+;; è·å–æ›¿æ¢å¯¹ï¼ˆå¯¹è¯æ¡†ï¼‰
 (defun JK_Replace:get_pairs (/ dcl_id dcl_file result pair1 pair2 pair3 
-                               old1 old2 old3 new1 new2 new3)
+                               old1 old2 old3 new1 new2 new3 reg-pairs)
   (setq dcl_file (JK_Replace:create_dialog))
   
   (if (not dcl_file)
     (progn
-      (princ "\n´íÎó£ºÎŞ·¨´´½¨Ìæ»»¶Ô»°¿òÎÄ¼ş¡£")
+      (princ "\né”™è¯¯ï¼šæ— æ³•åˆ›å»ºæ›¿æ¢å¯¹è¯æ¡†æ–‡ä»¶ã€‚")
       nil
     )
     (progn
@@ -457,7 +469,7 @@
       
       (if (not dcl_id)
         (progn
-          (princ "\n´íÎó£ºÎŞ·¨¼ÓÔØ¶Ô»°¿òÎÄ¼ş¡£")
+          (princ "\né”™è¯¯ï¼šæ— æ³•åŠ è½½å¯¹è¯æ¡†æ–‡ä»¶ã€‚")
           (vl-file-delete dcl_file)
           nil
         )
@@ -466,13 +478,25 @@
             (progn
               (unload_dialog dcl_id)
               (vl-file-delete dcl_file)
-              (princ "\n´íÎó£ºÎŞ·¨ÏÔÊ¾¶Ô»°¿ò¡£")
+              (princ "\né”™è¯¯ï¼šæ— æ³•æ˜¾ç¤ºå¯¹è¯æ¡†ã€‚")
               nil
             )
             (progn
-              ;; ÉèÖÃÄ¬ÈÏÖµ
-              (if *JK-REPLACE-last-pairs*
-                (progn
+              ;; â˜… V1.1ä¿®æ”¹ï¼šä¼˜å…ˆä»æ³¨å†Œè¡¨è¯»å–ï¼Œå…¶æ¬¡å†…å­˜å˜é‡ï¼Œæœ€åç¡¬ç¼–ç é»˜è®¤å€¼
+              (cond
+                ;; ä¼˜å…ˆçº§1ï¼šä»æ³¨å†Œè¡¨è¯»å–ï¼ˆè·¨æ–‡ä»¶/è·¨ä¼šè¯ï¼‰
+                ((setq reg-pairs (JK_Replace:load_from_reg))
+                  (set_tile "old1" (car (nth 0 reg-pairs)))
+                  (set_tile "new1" (cadr (nth 0 reg-pairs)))
+                  (set_tile "old2" (car (nth 1 reg-pairs)))
+                  (set_tile "new2" (cadr (nth 1 reg-pairs)))
+                  (set_tile "old3" (car (nth 2 reg-pairs)))
+                  (set_tile "new3" (cadr (nth 2 reg-pairs)))
+                  ;; åŒæ­¥åˆ°å†…å­˜å˜é‡
+                  (setq *JK-REPLACE-last-pairs* reg-pairs)
+                )
+                ;; ä¼˜å…ˆçº§2ï¼šå½“å‰ä¼šè¯å†…å­˜å˜é‡
+                (*JK-REPLACE-last-pairs*
                   (setq pair1 (nth 0 *JK-REPLACE-last-pairs*))
                   (setq pair2 (nth 1 *JK-REPLACE-last-pairs*))
                   (setq pair3 (nth 2 *JK-REPLACE-last-pairs*))
@@ -483,9 +507,10 @@
                   (set_tile "old3" (car pair3))
                   (set_tile "new3" (cadr pair3))
                 )
-                (progn
-                  (set_tile "old1" "Ê©¹¤Í¼")
-                  (set_tile "new1" "¿¢¹¤Í¼")
+                ;; ä¼˜å…ˆçº§3ï¼šç¡¬ç¼–ç é»˜è®¤å€¼
+                (T
+                  (set_tile "old1" "æ–½å·¥å›¾")
+                  (set_tile "new1" "ç«£å·¥å›¾")
                   (set_tile "old2" "F2318S")
                   (set_tile "new2" "F2318Z")
                   (set_tile "old3" "2025.02")
@@ -525,33 +550,33 @@
   )
 )
 
-;; ´´½¨Ìæ»»¶Ô»°¿ò£¨²ğ·Ö³¤×Ö·û´®£©
+;; åˆ›å»ºæ›¿æ¢å¯¹è¯æ¡†ï¼ˆæ‹†åˆ†é•¿å­—ç¬¦ä¸²ï¼‰
 (defun JK_Replace:create_dialog (/ dcl_parts dcl_content dcl_file fp)
   (setq dcl_parts
     (list
       "JK_Replace_Dialog : dialog {\n"
-      "  label = \"JK¹¤¾ßÏä - ÅúÁ¿Ìæ»»\";\n"
+      "  label = \"JKå·¥å…·ç®± - æ‰¹é‡æ›¿æ¢\";\n"
       "  : column {\n"
       "    : boxed_column {\n"
-      "      label = \"µÚÒ»×éÌæ»»\";\n"
-      "      : edit_box { key = \"old1\"; label = \"Ìæ»»Ç°:\"; edit_width = 25; width = 30; }\n"
-      "      : edit_box { key = \"new1\"; label = \"Ìæ»»ºó:\"; edit_width = 25; width = 30; }\n"
+      "      label = \"ç¬¬ä¸€ç»„æ›¿æ¢\";\n"
+      "      : edit_box { key = \"old1\"; label = \"æ›¿æ¢å‰:\"; edit_width = 25; width = 30; }\n"
+      "      : edit_box { key = \"new1\"; label = \"æ›¿æ¢å:\"; edit_width = 25; width = 30; }\n"
       "    }\n"
       "    : boxed_column {\n"
-      "      label = \"µÚ¶ş×éÌæ»»\";\n"
-      "      : edit_box { key = \"old2\"; label = \"Ìæ»»Ç°:\"; edit_width = 25; width = 30; }\n"
-      "      : edit_box { key = \"new2\"; label = \"Ìæ»»ºó:\"; edit_width = 25; width = 30; }\n"
+      "      label = \"ç¬¬äºŒç»„æ›¿æ¢\";\n"
+      "      : edit_box { key = \"old2\"; label = \"æ›¿æ¢å‰:\"; edit_width = 25; width = 30; }\n"
+      "      : edit_box { key = \"new2\"; label = \"æ›¿æ¢å:\"; edit_width = 25; width = 30; }\n"
       "    }\n"
       "    : boxed_column {\n"
-      "      label = \"µÚÈı×éÌæ»»\";\n"
-      "      : edit_box { key = \"old3\"; label = \"Ìæ»»Ç°:\"; edit_width = 25; width = 30; }\n"
-      "      : edit_box { key = \"new3\"; label = \"Ìæ»»ºó:\"; edit_width = 25; width = 30; }\n"
+      "      label = \"ç¬¬ä¸‰ç»„æ›¿æ¢\";\n"
+      "      : edit_box { key = \"old3\"; label = \"æ›¿æ¢å‰:\"; edit_width = 25; width = 30; }\n"
+      "      : edit_box { key = \"new3\"; label = \"æ›¿æ¢å:\"; edit_width = 25; width = 30; }\n"
       "    }\n"
       "  }\n"
       "  spacer;\n"
       "  : row {\n"
-      "    : button { key = \"accept\"; label = \"È·¶¨\"; is_default = true; fixed_width = true; width = 12; alignment = centered; }\n"
-      "    : button { key = \"cancel\"; label = \"È¡Ïû\"; is_default = false; fixed_width = true; width = 12; alignment = centered; }\n"
+      "    : button { key = \"accept\"; label = \"ç¡®å®š\"; is_default = true; fixed_width = true; width = 12; alignment = centered; }\n"
+      "    : button { key = \"cancel\"; label = \"å–æ¶ˆ\"; is_default = false; fixed_width = true; width = 12; alignment = centered; }\n"
       "  }\n"
       "}\n"
     )
@@ -568,37 +593,37 @@
       dcl_file
     )
     (progn
-      (princ "\n´íÎó£ºÎŞ·¨´´½¨ÁÙÊ±¶Ô»°¿òÎÄ¼ş¡£")
+      (princ "\né”™è¯¯ï¼šæ— æ³•åˆ›å»ºä¸´æ—¶å¯¹è¯æ¡†æ–‡ä»¶ã€‚")
       nil
     )
   )
 )
 
-;; Ö´ĞĞÌæ»»
+;; æ‰§è¡Œæ›¿æ¢
 (defun JK_Replace:execute (old_new_pairs / ss i ent obj txt found_count pair 
                                            old_txt new_txt selection-flag
                                            replaced-count total-processed)
-  (princ "\n¿ªÊ¼Ìæ»»ÎÄ±¾...")
+  (princ "\nå¼€å§‹æ›¿æ¢æ–‡æœ¬...")
   
-  ;; Ñ¯ÎÊÓÃ»§Ñ¡Ôñ·¶Î§
+  ;; è¯¢é—®ç”¨æˆ·é€‰æ‹©èŒƒå›´
   (initget "All Select")
   (setq selection-flag 
-    (getkword "\nÑ¡ÔñÌæ»»·¶Î§ [È«²¿(All)/ÊÖ¶¯Ñ¡Ôñ(Select)] <All>: "))
+    (getkword "\né€‰æ‹©æ›¿æ¢èŒƒå›´ [å…¨éƒ¨(All)/æ‰‹åŠ¨é€‰æ‹©(Select)] <All>: "))
   
   (if (or (null selection-flag) (= selection-flag "All"))
     (progn
       (setq ss (ssget "_X" '((0 . "MTEXT,TEXT"))))
-      (princ "\nÕıÔÚ´¦ÀíËùÓĞÎÄ±¾¶ÔÏó...")
+      (princ "\næ­£åœ¨å¤„ç†æ‰€æœ‰æ–‡æœ¬å¯¹è±¡...")
     )
     (progn
-      (princ "\nÇëÑ¡ÔñÒªÌæ»»µÄÎÄ±¾¶ÔÏó...")
+      (princ "\nè¯·é€‰æ‹©è¦æ›¿æ¢çš„æ–‡æœ¬å¯¹è±¡...")
       (setq ss (ssget '((0 . "MTEXT,TEXT"))))
     )
   )
   
   (if (null ss)
     (progn
-      (princ "\nÎ´ÕÒµ½ÈÎºÎÎÄ±¾¶ÔÏó¡£")
+      (princ "\næœªæ‰¾åˆ°ä»»ä½•æ–‡æœ¬å¯¹è±¡ã€‚")
       (exit)
     )
   )
@@ -637,38 +662,38 @@
     )
   )
   
-  (princ (strcat "\n" (itoa total-processed) " ´¦ÎÄ±¾±»Ìæ»»£¬"))
-  (princ (strcat "Éæ¼° " (itoa found_count) " ¸öÎÄ±¾¶ÔÏó¡£"))
+  (princ (strcat "\n" (itoa total-processed) " å¤„æ–‡æœ¬è¢«æ›¿æ¢ï¼Œ"))
+  (princ (strcat "æ¶‰åŠ " (itoa found_count) " ä¸ªæ–‡æœ¬å¯¹è±¡ã€‚"))
   
   (if (= total-processed 0)
-    (princ "\nÎ´ÕÒµ½Æ¥ÅäµÄÎÄ±¾ÄÚÈİ¡£Çë¼ì²éÌæ»»Ìõ¼ş¡£")
+    (princ "\næœªæ‰¾åˆ°åŒ¹é…çš„æ–‡æœ¬å†…å®¹ã€‚è¯·æ£€æŸ¥æ›¿æ¢æ¡ä»¶ã€‚")
   )
 )
 
 ;; ================================================================
-;; ²å¼ş3£ºÎÄ×ÖÌ×ÍÖÔ² (Ô­ EE ¡ú JK_TextEllipse)
+;; æ’ä»¶3ï¼šæ–‡å­—å¥—æ¤­åœ† (JK_TextEllipse)
 ;; ================================================================
 
 (defun c:JK_TextEllipse (/ ss i ent obj minPt maxPt cenX cenY ang center longRad shortRad)
   (vl-load-com)
   
-  (princ "\n=== JK¹¤¾ßÏä - ÎÄ×ÖÌ×ÍÖÔ²¹¤¾ß ===\n")
+  (princ "\n=== JKå·¥å…·ç®± - æ–‡å­—å¥—æ¤­åœ†å·¥å…· ===\n")
   
   (setvar "cmdecho" 0)
   
-  ;; ¹Ì¶¨²ÎÊı£º³¤Öá°ë¾¶5£¬¶ÌÖá°ë¾¶2.5
+  ;; å›ºå®šå‚æ•°ï¼šé•¿è½´åŠå¾„5ï¼ŒçŸ­è½´åŠå¾„2.5
   (setq longRad 5.0)
   (setq shortRad 2.5)
   
-  ;; »ñÈ¡Ñ¡Ôñ¼¯£¨ÓÅÏÈÊ¹ÓÃÔ¤ÏÈÑ¡ÖĞµÄ¶ÔÏó£©
+  ;; è·å–é€‰æ‹©é›†ï¼ˆä¼˜å…ˆä½¿ç”¨é¢„å…ˆé€‰ä¸­çš„å¯¹è±¡ï¼‰
   (setq ss (ssget "_I"))
   (if (null ss)
     (progn
-      (princ "\nÇëÑ¡ÔñÎÄ×Ö¶ÔÏó: ")
+      (princ "\nè¯·é€‰æ‹©æ–‡å­—å¯¹è±¡: ")
       (setq ss (ssget '((0 . "TEXT,MTEXT"))))
     )
     (progn
-      ;; ¼ì²éÔ¤Ñ¡¶ÔÏóÊÇ·ñ¶¼ÊÇÎÄ×Ö
+      ;; æ£€æŸ¥é¢„é€‰å¯¹è±¡æ˜¯å¦éƒ½æ˜¯æ–‡å­—
       (setq i 0)
       (setq hasBad nil)
       (repeat (sslength ss)
@@ -681,7 +706,7 @@
       )
       (if hasBad
         (progn
-          (princ "\nÔ¤Ñ¡¶ÔÏó°üº¬·ÇÎÄ×Ö£¬ÇëÖØĞÂÑ¡Ôñ: ")
+          (princ "\né¢„é€‰å¯¹è±¡åŒ…å«éæ–‡å­—ï¼Œè¯·é‡æ–°é€‰æ‹©: ")
           (setq ss (ssget '((0 . "TEXT,MTEXT"))))
         )
       )
@@ -690,7 +715,7 @@
   
   (if (null ss)
     (progn
-      (princ "\nÎ´Ñ¡ÔñÎÄ×Ö£¬ÍË³ö¡£")
+      (princ "\næœªé€‰æ‹©æ–‡å­—ï¼Œé€€å‡ºã€‚")
       (setvar "cmdecho" 1)
       (princ)
       (exit)
@@ -702,23 +727,23 @@
     (setq ent (ssname ss i))
     (setq obj (vlax-ename->vla-object ent))
     
-    ;; »ñÈ¡ÎÄ×Ö±ß½ç¿ò
+    ;; è·å–æ–‡å­—è¾¹ç•Œæ¡†
     (vla-GetBoundingBox obj 'minPt 'maxPt)
     (setq minPt (vlax-safearray->list minPt))
     (setq maxPt (vlax-safearray->list maxPt))
     
-    ;; ¼ÆËãÖĞĞÄµã
+    ;; è®¡ç®—ä¸­å¿ƒç‚¹
     (setq cenX (/ (+ (car minPt) (car maxPt)) 2.0))
     (setq cenY (/ (+ (cadr minPt) (cadr maxPt)) 2.0))
     (setq center (list cenX cenY 0.0))
     
-    ;; »ñÈ¡ÎÄ×ÖĞı×ª½Ç
+    ;; è·å–æ–‡å­—æ—‹è½¬è§’
     (if (= (vla-get-ObjectName obj) "AcDbText")
       (setq ang (vla-get-Rotation obj))
       (setq ang 0.0)
     )
     
-    ;; ´´½¨ÍÖÔ²£¨Ëæµ±Ç°Í¼²ã£©
+    ;; åˆ›å»ºæ¤­åœ†ï¼ˆéšå½“å‰å›¾å±‚ï¼‰
     (setq ellipseObj
       (vla-addEllipse
         (vla-get-ModelSpace (vla-get-ActiveDocument (vlax-get-acad-object)))
@@ -728,7 +753,7 @@
       )
     )
     
-    ;; ÌØĞÔËæµ±Ç°Í¼²ã
+    ;; ç‰¹æ€§éšå½“å‰å›¾å±‚
     (vla-put-Color ellipseObj acByLayer)
     (vla-put-Linetype ellipseObj "ByLayer")
     (vla-put-Lineweight ellipseObj acLnWtByLayer)
@@ -736,67 +761,150 @@
     (setq i (1+ i))
   )
   
-  (princ (strcat "\nÍê³É£¡Îª " (itoa (sslength ss)) " ¸öÎÄ×ÖÌí¼ÓÍÖÔ²¡£"))
-  (princ "\nÍÖÔ²¹æ¸ñ£º³¤Öá°ë¾¶5£¬¶ÌÖá°ë¾¶2.5")
+  (princ (strcat "\nå®Œæˆï¼ä¸º " (itoa (sslength ss)) " ä¸ªæ–‡å­—æ·»åŠ æ¤­åœ†ã€‚"))
+  (princ "\næ¤­åœ†è§„æ ¼ï¼šé•¿è½´åŠå¾„5ï¼ŒçŸ­è½´åŠå¾„2.5")
   (setvar "cmdecho" 1)
   (princ)
 )
 
 ;;; ================================================================
-;;; µÚÆß²¿·Ö£º¹¤¾ßº¯Êı
+;;; ç¬¬ä¸ƒéƒ¨åˆ†ï¼šå·¥å…·å‡½æ•°
 ;;; ================================================================
 
-;; ²é¿´ÒÑ¼ÓÔØµÄ²å¼ş
+;; ----------------------------------------------------------------
+;; æ³¨å†Œè¡¨æŒä¹…åŒ–ç›¸å…³å‡½æ•°ï¼ˆV1.1æ–°å¢ï¼‰
+;; ----------------------------------------------------------------
+
+;; ä¿å­˜æ›¿æ¢å¯¹åˆ°æ³¨å†Œè¡¨
+(defun JK_Replace:save_to_reg (pairs / str)
+  ;; æ•°æ®æ ¼å¼: old1|new1|old2|new2|old3|new3
+  (setq str (strcat (car (nth 0 pairs)) "|" (cadr (nth 0 pairs)) "|"
+                    (car (nth 1 pairs)) "|" (cadr (nth 1 pairs)) "|"
+                    (car (nth 2 pairs)) "|" (cadr (nth 2 pairs))))
+  (vl-registry-write 
+    (strcat "HKEY_CURRENT_USER\\" *JK-REG-KEY*) 
+    "LastPairs" 
+    str
+  )
+)
+
+;; ä»æ³¨å†Œè¡¨è¯»å–æ›¿æ¢å¯¹ï¼Œå¤±è´¥è¿”å›nil
+(defun JK_Replace:load_from_reg (/ str parts)
+  (setq str (vl-registry-read 
+              (strcat "HKEY_CURRENT_USER\\" *JK-REG-KEY*) 
+              "LastPairs"))
+  (if (and str (/= str ""))
+    (progn
+      ;; æŒ‰ | åˆ†å‰²å­—ç¬¦ä¸²
+      (setq parts (JK:string-split str "|"))
+      (if (= (length parts) 6)
+        (list
+          (list (nth 0 parts) (nth 1 parts))
+          (list (nth 2 parts) (nth 3 parts))
+          (list (nth 4 parts) (nth 5 parts))
+        )
+        nil
+      )
+    )
+    nil
+  )
+)
+
+;; æ¸…é™¤æ³¨å†Œè¡¨ä¸­çš„æ›¿æ¢é…ç½®
+(defun JK_Replace:clear_reg ()
+  (vl-registry-delete 
+    (strcat "HKEY_CURRENT_USER\\" *JK-REG-KEY*) 
+    "LastPairs"
+  )
+  (setq *JK-REPLACE-last-pairs* nil)
+  (princ "\næ›¿æ¢é…ç½®å·²é‡ç½®ä¸ºé»˜è®¤å€¼ã€‚")
+  (princ)
+)
+
+;; å­—ç¬¦ä¸²åˆ†å‰²è¾…åŠ©å‡½æ•°
+(defun JK:string-split (str delim / pos result dlen)
+  (setq dlen (strlen delim))
+  (while (setq pos (vl-string-search delim str))
+    (setq result (cons (substr str 1 pos) result))
+    (setq str (substr str (+ pos 1 dlen)))
+  )
+  (reverse (cons str result))
+)
+
+;; ----------------------------------------------------------------
+;; å…¶ä»–å·¥å…·å‡½æ•°
+;; ----------------------------------------------------------------
+
+;; æŸ¥çœ‹å·²åŠ è½½çš„æ’ä»¶
 (defun c:JKPLUGINS (/ item)
-  (princ "\n=== JK¹¤¾ßÏä - ²å¼ş×´Ì¬ ===\n")
-  (princ "µ±Ç°°æ±¾: " *JK-version* "\n\n")
+  (princ "\n=== JKå·¥å…·ç®± - æ’ä»¶çŠ¶æ€ ===\n")
+  (princ (strcat "å½“å‰ç‰ˆæœ¬: " *JK-version* "\n\n"))
   (foreach item *JK-plugin-list*
     (princ (strcat (nth 1 item) " [" (nth 0 item) "]"))
     (princ (strcat " - " (nth 2 item) "\n"))
     (if (eval (read (strcat "c:" (nth 0 item))))
-      (princ "  ×´Ì¬: [ÒÑ¼ÓÔØ]\n")
-      (princ "  ×´Ì¬: [Î´¼ÓÔØ]\n")
+      (princ "  çŠ¶æ€: [å·²åŠ è½½]\n")
+      (princ "  çŠ¶æ€: [æœªåŠ è½½]\n")
     )
+  )
+  ;; æ˜¾ç¤ºæ³¨å†Œè¡¨é…ç½®çŠ¶æ€
+  (princ "\n--- æ›¿æ¢é…ç½®æŒä¹…åŒ–çŠ¶æ€ ---\n")
+  (if (JK_Replace:load_from_reg)
+    (princ "  æ³¨å†Œè¡¨: [å·²ä¿å­˜é…ç½®]\n")
+    (princ "  æ³¨å†Œè¡¨: [æ— ä¿å­˜é…ç½®ï¼Œä½¿ç”¨é»˜è®¤å€¼]\n")
   )
   (princ)
 )
 
-;; ÏÔÊ¾°ïÖúĞÅÏ¢
+;; é‡ç½®æ›¿æ¢é…ç½®ä¸ºé»˜è®¤å€¼
+(defun c:JKRESET ()
+  (JK_Replace:clear_reg)
+  (alert "æ›¿æ¢é…ç½®å·²é‡ç½®ä¸ºé»˜è®¤å€¼ï¼\n\nä¸‹æ¬¡æ‰“å¼€æ›¿æ¢å¯¹è¯æ¡†æ—¶å°†æ˜¾ç¤ºé»˜è®¤å†…å®¹ã€‚")
+  (princ)
+)
+
+;; æ˜¾ç¤ºå¸®åŠ©ä¿¡æ¯
 (defun c:JKHELP ()
-  (princ "\n=== JK¹¤¾ßÏä - °ïÖú ===\n")
-  (princ "\nÃüÁîÁĞ±í£º")
-  (princ "\n  JK            - ´ò¿ª¹¤¾ßÏäÖ÷½çÃæ")
-  (princ "\n  JKPLUGINS     - ²é¿´ËùÓĞ²å¼ş×´Ì¬")
-  (princ "\n  JKHELP        - ÏÔÊ¾´Ë°ïÖúĞÅÏ¢")
-  (princ "\n\n°üº¬¹¤¾ß£º")
+  (princ "\n=== JKå·¥å…·ç®± - å¸®åŠ© ===\n")
+  (princ "\nå‘½ä»¤åˆ—è¡¨ï¼š")
+  (princ "\n  JK            - æ‰“å¼€å·¥å…·ç®±ä¸»ç•Œé¢")
+  (princ "\n  JKPLUGINS     - æŸ¥çœ‹æ‰€æœ‰æ’ä»¶çŠ¶æ€")
+  (princ "\n  JKRESET       - é‡ç½®æ›¿æ¢é…ç½®ä¸ºé»˜è®¤å€¼")
+  (princ "\n  JKHELP        - æ˜¾ç¤ºæ­¤å¸®åŠ©ä¿¡æ¯")
+  (princ "\n\nåŒ…å«å·¥å…·ï¼š")
   (foreach item *JK-plugin-list*
     (if (nth 3 item)
       (princ (strcat "\n  " (nth 0 item) " - " (nth 1 item)))
     )
   )
-  (princ "\n\nÊ¹ÓÃËµÃ÷£º")
-  (princ "\n1. ÊäÈë JK ´ò¿ª¹¤¾ßÏä")
-  (princ "\n2. µã»÷°´Å¥ÔËĞĞ¶ÔÓ¦¹¤¾ß")
-  (princ "\n3. ËùÓĞ²å¼ş¾ùÒÔ JK_ ¿ªÍ·£¬±ÜÃâÃüÁî³åÍ»")
+  (princ "\n\nä½¿ç”¨è¯´æ˜ï¼š")
+  (princ "\n1. è¾“å…¥ JK æ‰“å¼€å·¥å…·ç®±")
+  (princ "\n2. ç‚¹å‡»æŒ‰é’®è¿è¡Œå¯¹åº”å·¥å…·")
+  (princ "\n3. æ‰€æœ‰æ’ä»¶å‡ä»¥ JK_ å¼€å¤´ï¼Œé¿å…å‘½ä»¤å†²çª")
+  (princ "\n\né…ç½®æŒä¹…åŒ–ï¼ˆV1.1ï¼‰ï¼š")
+  (princ "\n- æ‰¹é‡æ›¿æ¢çš„æ›¿æ¢å¯¹ä¼šè‡ªåŠ¨ä¿å­˜åˆ°æ³¨å†Œè¡¨")
+  (princ "\n- å…³é—­CADæˆ–æ‰“å¼€æ–°æ–‡ä»¶åï¼Œé…ç½®ä»ç„¶ä¿ç•™")
+  (princ "\n- è¾“å…¥ JKRESET å¯é‡ç½®ä¸ºé»˜è®¤é…ç½®")
   (princ)
 )
 
 ;;; ================================================================
-;;; µÚ°Ë²¿·Ö£º³õÊ¼»¯
+;;; ç¬¬å…«éƒ¨åˆ†ï¼šåˆå§‹åŒ–
 ;;; ================================================================
 
 (defun JK:init ()
-  (princ "\n¨X¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨[")
-  (princ "\n¨U  JK¹¤¾ßÏä " *JK-version* " ÒÑ³É¹¦¼ÓÔØ£¡  ¨U")
-  (princ "\n¨d¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨g")
-  (princ "\n¨U  ÊäÈë JK ´ò¿ª¹¤¾ßÏäÖ÷½çÃæ               ¨U")
-  (princ "\n¨U  ÊäÈë JKPLUGINS ²é¿´²å¼ş×´Ì¬            ¨U")
-  (princ "\n¨U  ÊäÈë JKHELP ²é¿´°ïÖúĞÅÏ¢               ¨U")
-  (princ "\n¨^¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨a")
+  (princ "\nâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—")
+  (princ (strcat "\nâ•‘  JKå·¥å…·ç®± " *JK-version* " å·²æˆåŠŸåŠ è½½ï¼              â•‘"))
+  (princ "\nâ• â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•£")
+  (princ "\nâ•‘  è¾“å…¥ JK         æ‰“å¼€å·¥å…·ç®±ä¸»ç•Œé¢             â•‘")
+  (princ "\nâ•‘  è¾“å…¥ JKPLUGINS  æŸ¥çœ‹æ’ä»¶çŠ¶æ€                 â•‘")
+  (princ "\nâ•‘  è¾“å…¥ JKRESET    é‡ç½®æ›¿æ¢é…ç½®                 â•‘")
+  (princ "\nâ•‘  è¾“å…¥ JKHELP     æŸ¥çœ‹å¸®åŠ©ä¿¡æ¯                 â•‘")
+  (princ "\nâ•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•")
   (princ)
 )
 
-;; ¼ÓÔØÊ±³õÊ¼»¯
+;; åŠ è½½æ—¶åˆå§‹åŒ–
 (JK:init)
 
 (princ)
