@@ -1,11 +1,13 @@
 ;;; ================================================================
-;;; 程序名称：JK工具箱 V1.1
+;;; 程序名称：JK工具箱 V2.1
 ;;; 功能描述：统一管理多个辅助工具，支持扩展
 ;;;          替换插件支持配置持久化（跨文件/跨会话保留）
+;;;          新增文字样式批量修改工具
 ;;; 快捷键：JK（主界面）
 ;;; 作者：ixsouler
-;;; 版本：1.1
+;;; 版本：2.1
 ;;; 更新日志：
+;;;   V2.1 - 新增文字样式批量修改工具（JK_TextStyleFix）
 ;;;   V1.1 - 替换插件配置持久化，写入注册表，跨文件保留
 ;;;   V1.0 - 初始版本，包含批量查重、批量替换、文字套椭圆
 ;;; ================================================================
@@ -15,7 +17,7 @@
 ;;; ================================================================
 
 ;; 工具箱版本
-(setq *JK-version* "V1.1")
+(setq *JK-version* "V2.1")
 
 ;; 插件列表配置（可扩展）
 ;; 格式：(命令名 显示名称 功能描述 是否启用)
@@ -24,9 +26,10 @@
     ("JK_FindDup" "批量查重" "查找重复文字并用不同颜色标记" T)
     ("JK_Replace" "批量替换" "支持3组文本同时替换（配置自动保存）" T)
     ("JK_TextEllipse" "文字套椭圆" "为文字中心添加固定大小椭圆" T)
+    ("JK_TextStyleFix" "文字样式修改" "批量修改SHX字体、大字体、高度、宽度因子" T)
     ;; 未来扩展插件示例（取消注释即可启用）
-    ;; ("JK_Plugin3" "插件名称" "功能描述" T)
-    ;; ("JK_Plugin4" "插件名称" "功能描述" T)
+    ;; ("JK_Plugin5" "插件名称" "功能描述" T)
+    ;; ("JK_Plugin6" "插件名称" "功能描述" T)
   )
 )
 
@@ -67,13 +70,6 @@
   ;; 设置对话框内容
   (JK:setup_dialog)
   
-  ;; 按钮动作 - 使用统一命名
-  (action_tile "btn_JK_FindDup" "(done_dialog 1)")
-  (action_tile "btn_JK_Replace" "(done_dialog 2)")
-  (action_tile "btn_JK_TextEllipse" "(done_dialog 3)")
-  (action_tile "btn_about" "(done_dialog 99)")
-  (action_tile "cancel" "(done_dialog 0)")
-  
   ;; 显示对话框
   (setq result (start_dialog))
   (unload_dialog dcl_id)
@@ -88,6 +84,7 @@
     ((= result 1) (JK:run_plugin "JK_FindDup"))
     ((= result 2) (JK:run_plugin "JK_Replace"))
     ((= result 3) (JK:run_plugin "JK_TextEllipse"))
+    ((= result 4) (JK:run_plugin "JK_TextStyleFix"))
     ((= result 99) (JK:show_about))
     (T (princ "\n已退出工具箱。"))
   )
@@ -127,7 +124,7 @@
       "      }\n"
       "      : row {\n"
       "        : button { key = \"btn_JK_TextEllipse\"; label = \"文字套椭圆\"; width = 18; height = 2; mnemonic = \"E\"; }\n"
-      "        : button { key = \"btn_plugin4\"; label = \"工具4\"; width = 18; height = 2; is_enabled = false; }\n"
+      "        : button { key = \"btn_JK_TextStyleFix\"; label = \"文字样式修改\"; width = 18; height = 2; mnemonic = \"T\"; }\n"
       "      }\n"
       "      : row {\n"
       "        : text { key = \"plugin_status\"; label = \"提示：灰色按钮为预留扩展位\"; alignment = centered; width = 40; }\n"
@@ -178,6 +175,8 @@
     "(set_tile \"status_text\" \"批量替换：支持3组文本同时替换（配置自动保存）\") (done_dialog 2)")
   (action_tile "btn_JK_TextEllipse" 
     "(set_tile \"status_text\" \"文字套椭圆：为文字中心添加固定大小椭圆（长轴5，短轴2.5）\") (done_dialog 3)")
+  (action_tile "btn_JK_TextStyleFix" 
+    "(set_tile \"status_text\" \"文字样式修改：批量修改SHX字体、大字体、高度、宽度因子\") (done_dialog 4)")
   (action_tile "btn_about" 
     "(set_tile \"status_text\" \"关于JK工具箱\") (done_dialog 99)")
   
@@ -225,6 +224,9 @@
       "1. 输入 JK 打开工具箱\n"
       "2. 点击对应按钮运行工具\n"
       "3. 支持键盘快捷键操作\n\n"
+      "V2.1 更新：\n"
+      "- 新增文字样式批量修改工具\n"
+      "  支持SHX字体、大字体、高度、宽度因子\n\n"
       "V1.1 更新：\n"
       "- 批量替换配置已支持持久化保存\n"
       "  修改替换对后，打开新文件仍保留\n\n"
@@ -257,10 +259,12 @@
 ;; 插件1：批量查重 (JK_FindDup)
 ;; ================================================================
 
-(defun c:JK_FindDup (/ ss ent-lst text-lst dup-groups color-list 
-                        i j ent1 ent2 txt1 txt2 group-item 
-                        color-index old-color all-texts processed
-                        total-changed group-count)
+(defun c:JK_FindDup (/ ss ent-lst dup-groups color-list 
+                        i color-index old-color processed
+                        total-changed group-count
+                        count same-ents user-response group-index
+                        first-ent ent-data alt-color try-index candidate
+                        ent txt item itm ents)
   
   (princ "\n=== JK工具箱 - 批量查重工具 ===\n")
   
@@ -278,15 +282,13 @@
   
   ;; 初始化列表
   (setq ent-lst '())   ; 存储 (图元名 . 文字内容) 的列表
-  (setq all-texts '()) ; 存储所有文字内容的列表，用于快速查找
   
   ;; 遍历选择集，收集文字信息
   (setq i 0)
   (repeat (sslength ss)
     (setq ent (ssname ss i))
-    (setq txt (cdr (assoc 1 (entget ent))))  ; 获取文字内容
+    (setq txt (cdr (assoc 1 (entget ent))))
     (setq ent-lst (cons (cons ent txt) ent-lst))
-    (setq all-texts (cons txt all-texts))
     (setq i (1+ i))
   )
   
@@ -446,7 +448,7 @@
       (JK_Replace:execute old_new_pairs)
       ;; 保存到当前会话内存变量
       (setq *JK-REPLACE-last-pairs* old_new_pairs)
-      ;; ★ V1.1新增：同时保存到注册表（跨文件/跨会话持久化）
+      ;; 同时保存到注册表（跨文件/跨会话持久化）
       (JK_Replace:save_to_reg old_new_pairs)
       (princ "\n替换操作完成！配置已保存。")
     )
@@ -482,7 +484,7 @@
               nil
             )
             (progn
-              ;; ★ V1.1修改：优先从注册表读取，其次内存变量，最后硬编码默认值
+              ;; 优先从注册表读取，其次内存变量，最后硬编码默认值
               (cond
                 ;; 优先级1：从注册表读取（跨文件/跨会话）
                 ((setq reg-pairs (JK_Replace:load_from_reg))
@@ -674,7 +676,7 @@
 ;; 插件3：文字套椭圆 (JK_TextEllipse)
 ;; ================================================================
 
-(defun c:JK_TextEllipse (/ ss i ent obj minPt maxPt cenX cenY ang center longRad shortRad)
+(defun c:JK_TextEllipse (/ ss i ent obj minPt maxPt cenX cenY ang center longRad shortRad hasBad)
   (vl-load-com)
   
   (princ "\n=== JK工具箱 - 文字套椭圆工具 ===\n")
@@ -764,6 +766,223 @@
   (princ (strcat "\n完成！为 " (itoa (sslength ss)) " 个文字添加椭圆。"))
   (princ "\n椭圆规格：长轴半径5，短轴半径2.5")
   (setvar "cmdecho" 1)
+  (princ)
+)
+
+;; ================================================================
+;; 插件4：文字样式批量修改 (JK_TextStyleFix) - V2.1新增
+;; ================================================================
+
+(defun c:JK_TextStyleFix (/ *error* acadobj doc textstyles dclpath dclid
+                           shxlist bigfontlist sel_shx sel_bigfont
+                           sel_height sel_width result cnt fp default_shx)
+  (vl-load-com)
+  
+  (princ "\n=== JK工具箱 - 文字样式批量修改工具 ===\n")
+  
+  ;; ---------- 错误处理 ----------
+  (defun *error* (msg)
+    (if (and dclid (numberp dclid) (> dclid 0))
+      (unload_dialog dclid)
+    )
+    (if (and dclpath (findfile dclpath))
+      (vl-file-delete dclpath)
+    )
+    (if msg (princ (strcat "\n错误: " msg)))
+    (princ)
+  )
+  
+  ;; ---------- 获取所有支持文件搜索路径 ----------
+  (defun JK_TSF:get-support-dirs (/ path ret pos)
+    (setq path (getenv "ACAD"))
+    (setq ret '())
+    (if path
+      (progn
+        (while (setq pos (vl-string-search ";" path))
+          (setq ret (cons (substr path 1 pos) ret))
+          (setq path (substr path (+ pos 2)))
+        )
+        (setq ret (cons path ret))
+      )
+    )
+    (reverse ret)
+  )
+  
+  ;; ---------- 获取所有 SHX 字体文件名 ----------
+  (defun JK_TSF:get-shx-fonts (/ dirs dir files ret f)
+    (setq dirs (JK_TSF:get-support-dirs))
+    (setq ret '())
+    (foreach dir dirs
+      (if (and dir (/= dir ""))
+        (progn
+          (setq dir (strcat (vl-string-right-trim "\\/" dir) "\\"))
+          (setq files
+            (vl-catch-all-apply
+              'vl-directory-files
+              (list dir "*.shx" 1)
+            )
+          )
+          (if (and files (not (vl-catch-all-error-p files)))
+            (foreach f files
+              (if (not (member (strcase f) (mapcar 'strcase ret)))
+                (setq ret (append ret (list f)))
+              )
+            )
+          )
+        )
+      )
+    )
+    (acad_strlsort ret)
+  )
+  
+  ;; ---------- 生成临时 DCL 对话框 ----------
+  (setq dclpath (vl-filename-mktemp "JK_TSF" nil ".dcl"))
+  (setq fp (open dclpath "w"))
+  (if (null fp)
+    (progn
+      (alert "无法创建临时对话框文件。")
+      (exit)
+    )
+  )
+  
+  (foreach line
+    '(
+      "JK_TSF_Dialog : dialog {"
+      "    label = \"JK工具箱 - 批量修改文字样式\";"
+      "    : column {"
+      "        : row {"
+      "            : column {"
+      "                : text { label = \"主字体 (SHX):\"; alignment = left; }"
+      "                : popup_list { key = \"shx\"; width = 35; }"
+      "                : text { label = \"大字体 (留空=不改):\"; alignment = left; }"
+      "                : popup_list { key = \"bigfont\"; width = 35; }"
+      "                : text { label = \"高度 (留空=不改):\"; alignment = left; }"
+      "                : edit_box { key = \"height\"; width = 20; }"
+      "                : text { label = \"宽度因子 (留空=不改):\"; alignment = left; }"
+      "                : edit_box { key = \"width\"; width = 20; }"
+      "            }"
+      "        }"
+      "    }"
+      "    : row {"
+      "        : button { key = \"apply\"; label = \"应用\"; is_default = true; width = 12; }"
+      "        : button { key = \"cancel\"; label = \"取消\"; is_cancel = true; width = 12; }"
+      "    }"
+      "}"
+    )
+    (write-line line fp)
+  )
+  (close fp)
+  
+  ;; ---------- 准备字体列表 ----------
+  (setq shxlist (JK_TSF:get-shx-fonts))
+  (if (null shxlist)
+    (setq shxlist
+      '("txt.shx" "simplex.shx" "romans.shx" "gbcbig.shx" "chineset.shx")
+    )
+  )
+  (setq bigfontlist (append '("*不修改*" "*清除*") shxlist))
+  
+  ;; ---------- 加载对话框 ----------
+  (setq dclid (load_dialog dclpath))
+  (if (null dclid)
+    (progn
+      (alert "无法加载对话框。")
+      (if (and dclpath (findfile dclpath)) (vl-file-delete dclpath))
+      (exit)
+    )
+  )
+  
+  (if (not (new_dialog "JK_TSF_Dialog" dclid))
+    (progn
+      (alert "无法显示对话框。")
+      (unload_dialog dclid)
+      (if (and dclpath (findfile dclpath)) (vl-file-delete dclpath))
+      (exit)
+    )
+  )
+  
+  ;; ---------- 填充下拉列表 ----------
+  (start_list "shx")
+  (foreach s shxlist (add_list s))
+  (end_list)
+  
+  (setq default_shx
+    (cond
+      ((vl-position "txt.shx" shxlist))
+      ((vl-position "romans.shx" shxlist))
+      (t 0)
+    )
+  )
+  (set_tile "shx" (itoa default_shx))
+  
+  (start_list "bigfont")
+  (foreach s bigfontlist (add_list s))
+  (end_list)
+  (set_tile "bigfont" "0")
+  
+  (set_tile "height" "")
+  (set_tile "width" "")
+  
+  ;; ---------- 按钮动作 ----------
+  (action_tile "apply"
+    (strcat
+      "(setq sel_shx (nth (atoi (get_tile \"shx\")) shxlist))"
+      "(setq sel_bigfont (nth (atoi (get_tile \"bigfont\")) bigfontlist))"
+      "(setq sel_height (vl-string-trim \" \\t\\n\" (get_tile \"height\")))"
+      "(setq sel_width (vl-string-trim \" \\t\\n\" (get_tile \"width\")))"
+      "(done_dialog 1)"
+    )
+  )
+  (action_tile "cancel" "(done_dialog 0)")
+  
+  (setq result (start_dialog))
+  (unload_dialog dclid)
+  (if (and dclpath (findfile dclpath))
+    (vl-file-delete dclpath)
+  )
+  
+  ;; ---------- 应用修改 ----------
+  (if (= result 1)
+    (progn
+      (setq acadobj   (vlax-get-acad-object))
+      (setq doc       (vla-get-ActiveDocument acadobj))
+      (setq textstyles (vla-get-TextStyles doc))
+      (setq cnt 0)
+      
+      (vlax-for st textstyles
+        ;; 主字体
+        (vla-put-fontFile st sel_shx)
+        
+        ;; 大字体
+        (cond
+          ((= sel_bigfont "*不修改*") nil)
+          ((= sel_bigfont "*清除*")
+            (vla-put-bigFontFile st "")
+          )
+          (t
+            (vla-put-bigFontFile st sel_bigfont)
+          )
+        )
+        
+        ;; 高度
+        (if (and sel_height (/= sel_height ""))
+          (vla-put-height st (atof sel_height))
+        )
+        
+        ;; 宽度因子
+        (if (and sel_width (/= sel_width ""))
+          (vla-put-width st (atof sel_width))
+        )
+        
+        (setq cnt (1+ cnt))
+      )
+      
+      (princ (strcat "\n已完成，共修改 " (itoa cnt) " 个文字样式。"))
+      (vla-regen doc 1)
+      (princ "\n提示：如果文字未立即更新，请执行 REGENALL。")
+    )
+  )
+  
   (princ)
 )
 
@@ -867,10 +1086,10 @@
 (defun c:JKHELP ()
   (princ "\n=== JK工具箱 - 帮助 ===\n")
   (princ "\n命令列表：")
-  (princ "\n  JK            - 打开工具箱主界面")
-  (princ "\n  JKPLUGINS     - 查看所有插件状态")
-  (princ "\n  JKRESET       - 重置替换配置为默认值")
-  (princ "\n  JKHELP        - 显示此帮助信息")
+  (princ "\n  JK                - 打开工具箱主界面")
+  (princ "\n  JKPLUGINS         - 查看所有插件状态")
+  (princ "\n  JKRESET           - 重置替换配置为默认值")
+  (princ "\n  JKHELP            - 显示此帮助信息")
   (princ "\n\n包含工具：")
   (foreach item *JK-plugin-list*
     (if (nth 3 item)
@@ -885,6 +1104,10 @@
   (princ "\n- 批量替换的替换对会自动保存到注册表")
   (princ "\n- 关闭CAD或打开新文件后，配置仍然保留")
   (princ "\n- 输入 JKRESET 可重置为默认配置")
+  (princ "\n\nV2.1新增：")
+  (princ "\n- 文字样式批量修改工具")
+  (princ "\n- 支持SHX字体、大字体、高度、宽度因子")
+  (princ "\n- 留空表示不修改对应属性")
   (princ)
 )
 
@@ -896,10 +1119,10 @@
   (princ "\n╔══════════════════════════════════════════════╗")
   (princ (strcat "\n║  JK工具箱 " *JK-version* " 已成功加载！              ║"))
   (princ "\n╠══════════════════════════════════════════════╣")
-  (princ "\n║  输入 JK         打开工具箱主界面             ║")
-  (princ "\n║  输入 JKPLUGINS  查看插件状态                 ║")
-  (princ "\n║  输入 JKRESET    重置替换配置                 ║")
-  (princ "\n║  输入 JKHELP     查看帮助信息                 ║")
+  (princ "\n║  输入 JK                打开工具箱主界面     ║")
+  (princ "\n║  输入 JKPLUGINS         查看插件状态         ║")
+  (princ "\n║  输入 JKRESET           重置替换配置         ║")
+  (princ "\n║  输入 JKHELP            查看帮助信息         ║")
   (princ "\n╚══════════════════════════════════════════════╝")
   (princ)
 )
