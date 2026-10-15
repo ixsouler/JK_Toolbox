@@ -1,12 +1,13 @@
 ;;; ================================================================
-;;; 程序名称：JK工具箱 V2.1
+;;; 程序名称：JK工具箱 V2.2
 ;;; 功能描述：统一管理多个辅助工具，支持扩展
 ;;;          替换插件支持配置持久化（跨文件/跨会话保留）
-;;;          新增文字样式批量修改工具
+;;;          文字样式批量修改工具支持字体筛选
 ;;; 快捷键：JK（主界面）
 ;;; 作者：ixsouler
-;;; 版本：2.1
+;;; 版本：2.2
 ;;; 更新日志：
+;;;   V2.2 - 文字样式修改工具支持字体输入筛选，快速定位字体
 ;;;   V2.1 - 新增文字样式批量修改工具（JK_TextStyleFix）
 ;;;   V1.1 - 替换插件配置持久化，写入注册表，跨文件保留
 ;;;   V1.0 - 初始版本，包含批量查重、批量替换、文字套椭圆
@@ -17,7 +18,7 @@
 ;;; ================================================================
 
 ;; 工具箱版本
-(setq *JK-version* "V2.1")
+(setq *JK-version* "V2.2")
 
 ;; 插件列表配置（可扩展）
 ;; 格式：(命令名 显示名称 功能描述 是否启用)
@@ -224,6 +225,9 @@
       "1. 输入 JK 打开工具箱\n"
       "2. 点击对应按钮运行工具\n"
       "3. 支持键盘快捷键操作\n\n"
+      "V2.2 更新：\n"
+      "- 文字样式修改支持字体筛选\n"
+      "  输入关键字快速定位字体\n\n"
       "V2.1 更新：\n"
       "- 新增文字样式批量修改工具\n"
       "  支持SHX字体、大字体、高度、宽度因子\n\n"
@@ -770,12 +774,14 @@
 )
 
 ;; ================================================================
-;; 插件4：文字样式批量修改 (JK_TextStyleFix) - V2.1新增
+;; 插件4：文字样式批量修改 (JK_TextStyleFix) - V2.2 支持字体筛选
 ;; ================================================================
 
 (defun c:JK_TextStyleFix (/ *error* acadobj doc textstyles dclpath dclid
-                           shxlist bigfontlist sel_shx sel_bigfont
-                           sel_height sel_width result cnt fp default_shx)
+                           shxlist bigfontlist shxfiltered bigfontfiltered
+                           sel_shx sel_bigfont sel_height sel_width
+                           result cnt fp default_shx
+                           shx_filter_str bigfont_filter_str)
   (vl-load-com)
   
   (princ "\n=== JK工具箱 - 文字样式批量修改工具 ===\n")
@@ -835,6 +841,23 @@
     (acad_strlsort ret)
   )
   
+  ;; ---------- 按关键字筛选字体列表（不区分大小写） ----------
+  (defun JK_TSF:filter-fonts (fonts keyword / kw result)
+    (if (or (null keyword) (= keyword ""))
+      fonts
+      (progn
+        (setq kw (strcase keyword))
+        (setq result '())
+        (foreach f fonts
+          (if (vl-string-search kw (strcase f))
+            (setq result (append result (list f)))
+          )
+        )
+        result
+      )
+    )
+  )
+  
   ;; ---------- 生成临时 DCL 对话框 ----------
   (setq dclpath (vl-filename-mktemp "JK_TSF" nil ".dcl"))
   (setq fp (open dclpath "w"))
@@ -850,16 +873,26 @@
       "JK_TSF_Dialog : dialog {"
       "    label = \"JK工具箱 - 批量修改文字样式\";"
       "    : column {"
-      "        : row {"
-      "            : column {"
-      "                : text { label = \"主字体 (SHX):\"; alignment = left; }"
-      "                : popup_list { key = \"shx\"; width = 35; }"
-      "                : text { label = \"大字体 (留空=不改):\"; alignment = left; }"
-      "                : popup_list { key = \"bigfont\"; width = 35; }"
-      "                : text { label = \"高度 (留空=不改):\"; alignment = left; }"
-      "                : edit_box { key = \"height\"; width = 20; }"
-      "                : text { label = \"宽度因子 (留空=不改):\"; alignment = left; }"
-      "                : edit_box { key = \"width\"; width = 20; }"
+      "        : boxed_column { label = \"主字体 (SHX)\";"
+      "            : row {"
+      "                : edit_box { key = \"shx_filter\"; label = \"筛选:\"; edit_width = 20; }"
+      "                : button { key = \"shx_clear\"; label = \"清除\"; width = 8; fixed_width = true; }"
+      "            }"
+      "            : popup_list { key = \"shx\"; width = 38; height = 8; }"
+      "            : text { key = \"shx_info\"; label = \"\"; width = 38; }"
+      "        }"
+      "        : boxed_column { label = \"大字体\";"
+      "            : row {"
+      "                : edit_box { key = \"bigfont_filter\"; label = \"筛选:\"; edit_width = 20; }"
+      "                : button { key = \"bigfont_clear\"; label = \"清除\"; width = 8; fixed_width = true; }"
+      "            }"
+      "            : popup_list { key = \"bigfont\"; width = 38; height = 8; }"
+      "            : text { key = \"bigfont_info\"; label = \"\"; width = 38; }"
+      "        }"
+      "        : boxed_column { label = \"其他属性 (留空=不改)\";"
+      "            : row {"
+      "                : edit_box { key = \"height\"; label = \"高度:\"; edit_width = 15; }"
+      "                : edit_box { key = \"width\"; label = \"宽度因子:\"; edit_width = 15; }"
       "            }"
       "        }"
       "    }"
@@ -882,6 +915,10 @@
   )
   (setq bigfontlist (append '("*不修改*" "*清除*") shxlist))
   
+  ;; 初始化筛选后列表
+  (setq shxfiltered shxlist)
+  (setq bigfontfiltered bigfontlist)
+  
   ;; ---------- 加载对话框 ----------
   (setq dclid (load_dialog dclpath))
   (if (null dclid)
@@ -901,37 +938,80 @@
     )
   )
   
-  ;; ---------- 填充下拉列表 ----------
-  (start_list "shx")
-  (foreach s shxlist (add_list s))
-  (end_list)
+  ;; ---------- 填充下拉列表函数 ----------
+  (defun JK_TSF:fill-list (key lst / idx)
+    (start_list key)
+    (foreach s lst (add_list s))
+    (end_list)
+    (setq idx (get_tile key))
+    (if (or (null idx) (= idx "") (>= (atoi idx) (length lst)))
+      (set_tile key "0")
+    )
+  )
   
+  ;; 初始化主字体列表
+  (JK_TSF:fill-list "shx" shxfiltered)
   (setq default_shx
     (cond
-      ((vl-position "txt.shx" shxlist))
-      ((vl-position "romans.shx" shxlist))
+      ((vl-position "txt.shx" shxfiltered))
+      ((vl-position "romans.shx" shxfiltered))
       (t 0)
     )
   )
   (set_tile "shx" (itoa default_shx))
+  (set_tile "shx_filter" "")
+  (set_tile "shx_info" (strcat "共 " (itoa (length shxfiltered)) " 个字体"))
   
-  (start_list "bigfont")
-  (foreach s bigfontlist (add_list s))
-  (end_list)
+  ;; 初始化大字体列表
+  (JK_TSF:fill-list "bigfont" bigfontfiltered)
   (set_tile "bigfont" "0")
+  (set_tile "bigfont_filter" "")
+  (set_tile "bigfont_info" (strcat "共 " (itoa (length bigfontfiltered)) " 个字体"))
   
   (set_tile "height" "")
   (set_tile "width" "")
   
+  ;; ---------- 筛选动作：主字体 ----------
+  (action_tile "shx_filter"
+    "(setq shx_filter_str $value)
+     (setq shxfiltered (JK_TSF:filter-fonts shxlist shx_filter_str))
+     (JK_TSF:fill-list \"shx\" shxfiltered)
+     (set_tile \"shx_info\" (strcat \"共 \" (itoa (length shxfiltered)) \" 个字体\"))
+     (if (> (length shxfiltered) 0) (set_tile \"shx\" \"0\"))"
+  )
+  
+  (action_tile "shx_clear"
+    "(set_tile \"shx_filter\" \"\")
+     (setq shxfiltered shxlist)
+     (JK_TSF:fill-list \"shx\" shxfiltered)
+     (set_tile \"shx_info\" (strcat \"共 \" (itoa (length shxfiltered)) \" 个字体\"))
+     (set_tile \"shx\" \"0\")"
+  )
+  
+  ;; ---------- 筛选动作：大字体 ----------
+  (action_tile "bigfont_filter"
+    "(setq bigfont_filter_str $value)
+     (setq bigfontfiltered (JK_TSF:filter-fonts bigfontlist bigfont_filter_str))
+     (JK_TSF:fill-list \"bigfont\" bigfontfiltered)
+     (set_tile \"bigfont_info\" (strcat \"共 \" (itoa (length bigfontfiltered)) \" 个字体\"))
+     (if (> (length bigfontfiltered) 0) (set_tile \"bigfont\" \"0\"))"
+  )
+  
+  (action_tile "bigfont_clear"
+    "(set_tile \"bigfont_filter\" \"\")
+     (setq bigfontfiltered bigfontlist)
+     (JK_TSF:fill-list \"bigfont\" bigfontfiltered)
+     (set_tile \"bigfont_info\" (strcat \"共 \" (itoa (length bigfontfiltered)) \" 个字体\"))
+     (set_tile \"bigfont\" \"0\")"
+  )
+  
   ;; ---------- 按钮动作 ----------
   (action_tile "apply"
-    (strcat
-      "(setq sel_shx (nth (atoi (get_tile \"shx\")) shxlist))"
-      "(setq sel_bigfont (nth (atoi (get_tile \"bigfont\")) bigfontlist))"
-      "(setq sel_height (vl-string-trim \" \\t\\n\" (get_tile \"height\")))"
-      "(setq sel_width (vl-string-trim \" \\t\\n\" (get_tile \"width\")))"
-      "(done_dialog 1)"
-    )
+    "(setq sel_shx (nth (atoi (get_tile \"shx\")) shxfiltered))
+     (setq sel_bigfont (nth (atoi (get_tile \"bigfont\")) bigfontfiltered))
+     (setq sel_height (vl-string-trim \" \\t\\n\" (get_tile \"height\")))
+     (setq sel_width (vl-string-trim \" \\t\\n\" (get_tile \"width\")))
+     (done_dialog 1)"
   )
   (action_tile "cancel" "(done_dialog 0)")
   
@@ -944,6 +1024,12 @@
   ;; ---------- 应用修改 ----------
   (if (= result 1)
     (progn
+      (if (null sel_shx)
+        (progn
+          (alert "未选择有效的主字体！")
+          (exit)
+        )
+      )
       (setq acadobj   (vlax-get-acad-object))
       (setq doc       (vla-get-ActiveDocument acadobj))
       (setq textstyles (vla-get-TextStyles doc))
@@ -1104,6 +1190,10 @@
   (princ "\n- 批量替换的替换对会自动保存到注册表")
   (princ "\n- 关闭CAD或打开新文件后，配置仍然保留")
   (princ "\n- 输入 JKRESET 可重置为默认配置")
+  (princ "\n\nV2.2新增：")
+  (princ "\n- 文字样式修改支持字体筛选")
+  (princ "\n- 在筛选框输入关键字（如hz）")
+  (princ "\n- 按回车后列表只显示匹配的字体")
   (princ "\n\nV2.1新增：")
   (princ "\n- 文字样式批量修改工具")
   (princ "\n- 支持SHX字体、大字体、高度、宽度因子")
